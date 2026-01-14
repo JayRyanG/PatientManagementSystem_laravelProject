@@ -241,7 +241,7 @@ class PatientController extends Controller
         <body>
 
             <h1>Patients Report</h1>
-            <div class="subtitle">Patient Management System</div>
+            <div class="subtitle">CareSync Management System</div>
 
             <div class="meta">
                 <div>Generated: ' . date('F d, Y • h:i A') . '</div>
