@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
     use Hasfactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -16,6 +18,7 @@ class Patient extends Model
         'phone_number',
         'address',
         'doctor_id',
+        'photo',
     ];
 
     public function doctor()

@@ -28,6 +28,13 @@
                     wire:navigate>
                     {{ __('Doctors') }}
                 </flux:navlist.item>
+
+                <flux:navlist.item
+                    icon="trash"
+                    href="{{ route('patients.trash') }}"
+                    :current="request()->routeIs('patients.trash')">
+                    Trash
+                </flux:navlist.item>
                 
                 </flux:navlist.group>
             </flux:navlist>

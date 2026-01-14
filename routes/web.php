@@ -20,6 +20,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');
     Route::put('/patients/{patient}', [PatientController::class, 'update'])->name('patients.update');
     Route::delete('/patients/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
+
+    Route::get('/patients/trash', [PatientController::class, 'trash'])->name('patients.trash');
+    Route::post('/patients/{id}/restore', [PatientController::class, 'restore'])->name('patients.restore');
+    Route::delete('/patients/{id}/force-delete', [PatientController::class, 'forceDelete'])->name('patients.force-delete');
+
+    Route::get('/patients/export', [PatientController::class, 'export'])->name('patients.export');
 });
 
 //Doctor Routes
