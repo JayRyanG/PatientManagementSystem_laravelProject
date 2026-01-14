@@ -7,9 +7,20 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
-            </a>
+            <a href="{{ route('dashboard') }}"
+            class="flex flex-col items-center justify-center"
+            wire:navigate>
+
+                <img
+                    src="{{ asset('images/caresync logo.png') }}"
+                    alt="CareSync Patient Management System"
+                    class="h-16 w-auto object-contain"
+                >
+
+                <span class="mt-2 text-sm font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    CareSync Management System
+                </span>
+
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">

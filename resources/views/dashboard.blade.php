@@ -307,12 +307,12 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->name }}</td>
-                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->date_of_birth }}</td>
+                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ $patient->name }}</td>
+                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ $patient->date_of_birth }}</td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->email }}</td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->phone_number }}</td>
-                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->address }}</td>
-                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
+                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ $patient->address }}</td>
+                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">
                                              @if($patient->doctor)
                                                     <div class="font-medium">
                                                         {{ $patient->doctor->name }}
@@ -325,6 +325,7 @@
                                                 @endif
                                         </td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
+                                            <div class="flex items-center gap-1 whitespace-nowrap">
                                             <button onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->photo }}')"
                                                     class="text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
                                                 Edit
@@ -335,6 +336,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">Trash</button>
                                             </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
