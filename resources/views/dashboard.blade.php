@@ -325,19 +325,34 @@
                                                 @endif
                                         </td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
-                                            <div class="flex items-center gap-1 whitespace-nowrap">
-                                            <button onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->photo }}')"
-                                                    class="text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
-                                                Edit
-                                            </button>
-                                            <span class="mx-2 text-neutral-400">|</span>
-                                            <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this patient?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">Trash</button>
-                                            </form>
+                                            <div class="flex items-center gap-2 whitespace-nowrap">
+
+                                                <!-- EDIT -->
+                                                <button
+                                                    onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->photo }}')"
+                                                    class="rounded-md border border-blue-500 px-3 py-1 text-xs font-medium text-blue-600
+                                                        transition hover:bg-blue-50 hover:text-blue-700
+                                                        dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/30">
+                                                    Edit
+                                                </button>
+
+                                                <!-- TRASH -->
+                                                <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this patient?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        type="submit"
+                                                        class="rounded-md border border-red-500 px-3 py-1 text-xs font-medium text-red-600
+                                                            transition hover:bg-red-50 hover:text-red-700
+                                                            dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/30">
+                                                        Trash
+                                                    </button>
+                                                </form>
+
                                             </div>
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>

@@ -105,23 +105,34 @@
                                                 {{ $patient->deleted_at->format('h:i A') }}
                                             </div>
                                         </td>
-                                        <td class="py-4">
-                                            <div class="flex justify-end gap-2">
+                                        <td class="py-4 text-right">
+                                            <div class="inline-flex items-center gap-2">
+
+                                                <!-- RESTORE -->
                                                 <form method="POST" action="{{ route('patients.restore', $patient->id) }}">
                                                     @csrf
-                                                    <button type="submit"
-                                                            class="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-green-700"
-                                                            onclick="return confirm('Restore this patient?')">
+                                                    <button
+                                                        type="submit"
+                                                        class="inline-flex items-center justify-center rounded-md
+                                                            border border-green-600 bg-green-600
+                                                            px-3 py-1.5 text-xs font-semibold text-white
+                                                            transition hover:bg-green-700 hover:border-green-700"
+                                                        onclick="return confirm('Restore this patient?')">
                                                         Restore
                                                     </button>
                                                 </form>
 
+                                                <!-- DELETE FOREVER -->
                                                 <form method="POST" action="{{ route('patients.force-delete', $patient->id) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                            class="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-red-700"
-                                                            onclick="return confirm('PERMANENTLY delete this patient? This cannot be undone!')">
+                                                    <button
+                                                        type="submit"
+                                                        class="inline-flex items-center justify-center rounded-md
+                                                            border border-red-600 bg-red-600
+                                                            px-3 py-1.5 text-xs font-semibold text-white
+                                                            transition hover:bg-red-700 hover:border-red-700"
+                                                        onclick="return confirm('PERMANENTLY delete this patient? This cannot be undone!')">
                                                         Delete Forever
                                                     </button>
                                                 </form>
