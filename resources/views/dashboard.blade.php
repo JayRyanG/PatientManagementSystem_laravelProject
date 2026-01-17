@@ -38,7 +38,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium opacity-90">
-                            Active Doctors
+                            Medical Staff
                         </p>
                         <h3 class="mt-2 text-3xl font-bold">
                             {{ $activeDoctors }}
@@ -59,7 +59,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium opacity-90">
-                            Hospital Rate
+                            Operational Rate
                         </p>
                         <h3 class="mt-2 text-3xl font-bold">
                             94%
@@ -97,14 +97,12 @@
                 <div class="mb-6 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900/50">
                     <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add New Patient</h2>
 
-                    
                     <form action="{{ route('patients.store') }}" method="POST" enctype="multipart/form-data" class="grid gap-4 md:grid-cols-2">
                         @csrf
 
-
                         <div>
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</label>
-                            <input type="text" name="name" value="{{ old('name') }}" placeholder="ex. Juan Dela Cruz" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="e.g. Juan Dela Cruz" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                             @error('name')
                                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                             @enderror
@@ -124,21 +122,21 @@
                         </div>
                         <div>
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email</label>
-                            <input type="email" name="email" value="{{ old('email') }}" placeholder="ex. juandelacruz@gmail.com" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <input type="email" name="email" value="{{ old('email') }}" placeholder="e.g. juandelacruz@gmail.com" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                             @error('email')
                                 <p class="mt-1 text-xs text-red-600"> {{ $message }} </p>
                             @enderror
                         </div>
                         <div>
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Phone</label>
-                            <input type="tel" name="phone_number" value="{{ old('phone_number') }}" placeholder="ex. 09123456789" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <input type="tel" name="phone_number" value="{{ old('phone_number') }}" placeholder="e.g. 09123456789" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                             @error('phone_number')
                                 <p class="mt-1 text-xs text-red-600"> {{ $message }} </p>
                             @enderror
                         </div>
-                        <div>
+                        <div class="md:col-span-1">
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Address</label>
-                            <input type="text" name="address" value="{{ old('address') }}" placeholder="ex. 123 Street., Brgy. Urban, Roxas City"  required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <input type="text" name="address" value="{{ old('address') }}" placeholder="e.g. 123 Street., Brgy. Urban, Roxas City"  required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                             @error('address')
                                 <p class="mt-1 text-xs text-red-600"> {{ $message }} </p>
                             @enderror
@@ -157,9 +155,10 @@
                             @enderror
                         </div>
 
-                        <div class="md:col-span-1">
+                        {{-- START: Standardized Alignment for Status and Photo --}}
+                        <div>
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Status</label>
-                            <select name="status" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 white:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <select name="status" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                                 <option value="pending" selected>Pending</option>
                                 <option value="active">Active</option>
                                 <option value="discharged">Discharged</option>
@@ -169,39 +168,37 @@
                             @enderror
                         </div>
 
-                <div class="md:col-span-2">
-                    <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                        Patient Photo (Optional)
-                    </label>
-                    <input
-                        type="file"
-                        name="photo"
-                        accept="image/jpeg,image/png,image/jpg"
-                        class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
-                            file:mr-4 file:rounded-md file:border-0 file:bg-blue-50
-                            file:px-4 file:py-2 file:text-sm file:font-medium file:text-blue-700
-                            hover:file:bg-blue-100 dark:border-neutral-600 dark:bg-neutral-800
-                            dark:text-neutral-100 dark:file:bg-blue-900/20 dark:file:text-blue-400"
-                    >
-                    <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                        JPG, PNG or JPEG. Max 2MB.
-                    </p>
-                    @error('photo')
-                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
+                        <div>
+                            <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                Patient Photo (Optional)
+                            </label>
+                            <input
+                                type="file"
+                                name="photo"
+                                accept="image/jpeg,image/png,image/jpg"
+                                class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
+                                    file:mr-4 file:rounded-md file:border-0 file:bg-blue-50
+                                    file:px-4 file:py-2 file:text-sm file:font-medium file:text-blue-700
+                                    hover:file:bg-blue-100 dark:border-neutral-600 dark:bg-neutral-800
+                                    dark:text-neutral-100 dark:file:bg-blue-900/20 dark:file:text-blue-400"
+                            >
+                            @error('photo')
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div class="md:col-span-2 flex justify-end">
-                    <button
-                        type="submit"
-                        class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white
-                            transition-colors hover:bg-blue-700 focus:outline-none
-                            focus:ring-2 focus:ring-blue-500/20"
-                    >
-                        Add Patient
-                    </button>
-                </div>
-                </form>
+                        {{-- END: Standardized Alignment --}}
+                        <div class="md:col-span-2 flex justify-end mt-2">
+                            <button
+                                type="submit"
+                                class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white
+                                    transition-colors hover:bg-blue-700 focus:outline-none
+                                    focus:ring-2 focus:ring-blue-500/20"
+                            >
+                                Add Patient
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="rounded-lg border border-neutral-700 bg-neutral-900/50 p-6">
@@ -286,7 +283,6 @@
                     </form>
                 </div>
 
-
                 <div class="flex-1 overflow-auto">
                     <h2 class="mb-4 text-lg font-semibold p-2 text-neutral-900 dark:text-neutral-100">Patient List</h2>
                     <div class="overflow-x-auto">
@@ -351,14 +347,12 @@
                                         </td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
                                             <div class="flex items-center gap-2 whitespace-nowrap">
-
                                                 <button
                                                     onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->status }}', '{{ $patient->photo }}')"
                                                     class="rounded-md border border-blue-500/50 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400
                                                         transition-all hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600">
                                                     Edit
                                                 </button>
-
                                                 <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="inline"
                                                     onsubmit="return confirm('Are you sure you want to delete this patient?')">
                                                     @csrf
@@ -383,7 +377,6 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- ADDED: Pagination links here --}}
                     <div class="mt-4 px-4">
                         {{ $patients->links() }}
                     </div>
