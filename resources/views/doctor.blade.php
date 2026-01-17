@@ -3,200 +3,125 @@
 
         {{-- Success Message --}}
         @if(session('success'))
-            <div id="flash-message"
-                 class="rounded-lg bg-green-100 p-4 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+            <div id="flash-message" class="rounded-lg bg-green-100 p-4 text-green-700 dark:bg-green-900/30 dark:text-green-300">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-800">
-            <div class="flex h-full flex-col p-6">
-
-                {{-- ADD NEW DOCTOR --}}
-                <div class="mb-6 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900/50">
-                    <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                        Add New Doctor
-                    </h2>
-
-                    <form action="{{ route('doctors.store') }}" method="POST" class="space-y-4">
-                        @csrf
-
-                        <div class="grid gap-4 md:grid-cols-3">
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Doctor Specialization
-                                </label>
-                                <input type="text" name="name" value="{{ old('name') }}"
-                                       placeholder="e.g. Cardiologist"
-                                       required
-                                       class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
-                                              focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20
-                                              dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
-                                @error('name')
-                                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div class="md:col-span-2">
-                                <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Description
-                                </label>
-                                <textarea name="description" rows="1"
-                                          placeholder="e.g. Heart / Circulation"
-                                          class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
-                                                 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20
-                                                 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">{{ old('description') }}</textarea>
-                                @error('description')
-                                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button type="submit"
-                                    class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white
-                                           transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
-                                Add Doctor
-                            </button>
-                        </div>
-                    </form>
+        {{-- Add New Doctor Form Section --}}
+        <div class="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-800">
+            <h2 class="mb-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add New Doctor</h2>
+            
+            <form action="{{ route('doctors.store') }}" method="POST" class="grid gap-4 md:grid-cols-2">
+                @csrf
+                <div class="md:col-span-1">
+                    <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Doctor Specialization</label>
+                    <input type="text" name="name" placeholder="e.g. Dr. Juan Dela Cruz | Cardiologist" required 
+                           class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                 </div>
 
-                {{-- DOCTOR LIST --}}
-                <div class="flex-1 overflow-auto">
-                    <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                        Doctor List
-                    </h2>
+                <div class="md:col-span-1">
+                    <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Description</label>
+                    <input type="text" name="description" placeholder="e.g. Heart / Circulation" required 
+                           class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full min-w-full">
-                            <thead>
-                                <tr class="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/50">
-                                    <th class="px-4 py-3 text-center text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                                        #
-                                    </th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                                        Doctor Specialization
-                                    </th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                                        Description
-                                    </th>
-                                    <th class="px-4 py-3 text-center text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
+                <div class="md:col-span-2 flex justify-end">
+                    <button type="submit" class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                        Add Doctor
+                    </button>
+                </div>
+            </form>
+        </div>
 
-                            <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
-                                @forelse($doctors as $doctor)
-                                    <tr class="transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
-                                        <td class="px-4 py-3 text-center text-sm text-neutral-600 dark:text-neutral-400">
-                                            {{ $loop->iteration }}
-                                        </td>
+        {{-- Colorful Doctor Grid Section --}}
+        <div class="mt-4">
+            <h2 class="mb-6 text-xl font-bold text-neutral-900 dark:text-neutral-100 px-2">Medical Staff Directory</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse($doctors as $doctor)
+                    @php
+                        // Assigning different colors based on loop index for variety
+                        $colors = [
+                            'from-blue-500 to-cyan-400', 
+                            'from-purple-500 to-indigo-400', 
+                            'from-emerald-500 to-teal-400', 
+                            'from-orange-500 to-amber-400', 
+                            'from-rose-500 to-pink-400'
+                        ];
+                        $bgGradient = $colors[$loop->index % count($colors)];
+                    @endphp
 
-                                        <td class="px-4 py-3 text-left text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                                            {{ $doctor->name }}
-                                        </td>
+                    <div class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all hover:shadow-xl dark:border-neutral-700 dark:bg-neutral-900/50">
+                        {{-- Top Decorative Bar --}}
+                        <div class="h-2 w-full bg-gradient-to-r {{ $bgGradient }}"></div>
+                        
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br {{ $bgGradient }} text-lg font-bold text-white shadow-lg shadow-blue-500/20">
+                                    {{ strtoupper(substr($doctor->name, 4, 1)) }} {{-- Takes first letter after "Dr. " --}}
+                                </div>
+                                <span class="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-500 border border-emerald-500/20">
+                                    In-Clinic
+                                </span>
+                            </div>
 
-                                        <td class="px-4 py-3 text-left text-sm text-neutral-600 dark:text-neutral-400">
-                                            {{ $doctor->description ?? '—' }}
-                                        </td>
+                            <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-blue-500 transition-colors">
+                                {{ $doctor->name }}
+                            </h3>
+                            
+                            <p class="mt-1 text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-tight">
+                                {{ $doctor->description }}
+                            </p>
 
-                                        <td class="px-4 py-3 text-center">
-                                            <div class="flex items-center justify-center gap-2">
-
-                                                {{-- EDIT --}}
-                                                <button
-                                                    onclick="editDoctor({{ $doctor->id }}, '{{ $doctor->name }}', '{{ addslashes($doctor->description) }}')"
-                                                    class="rounded-md border border-blue-500 px-3 py-1 text-xs font-medium
-                                                           text-blue-600 transition
-                                                           hover:bg-blue-50 hover:text-blue-700
-                                                           dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/30">
-                                                    Edit
-                                                </button>
-
-                                                {{-- DELETE --}}
-                                                <form action="{{ route('doctors.destroy', $doctor) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Delete this doctor permanently?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        type="submit"
-                                                        class="rounded-md border border-red-500 px-3 py-1 text-xs font-medium
-                                                               text-red-600 transition
-                                                               hover:bg-red-50 hover:text-red-700
-                                                               dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/30">
-                                                        Delete
-                                                    </button>
-                                                </form>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4"
-                                            class="px-4 py-8 text-center text-sm text-neutral-500 dark:text-neutral-400">
-                                            No doctors found. Add your first doctor above!
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                            <div class="mt-6 flex items-center gap-3 border-t border-neutral-100 pt-4 dark:border-neutral-800">
+                                <button onclick="editDoctor({{ $doctor->id }}, '{{ $doctor->name }}', '{{ $doctor->description }}')" 
+                                        class="flex-1 rounded-lg border border-neutral-200 py-2 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-800">
+                                    Edit Profile
+                                </button>
+                                
+                                <form action="{{ route('doctors.destroy', $doctor->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Are you sure you want to remove this doctor?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="w-full rounded-lg bg-red-500/10 py-2 text-xs font-semibold text-red-500 hover:bg-red-500 hover:text-white transition-all">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
+                @empty
+                    <div class="col-span-full py-12 text-center">
+                        <div class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-neutral-400 dark:bg-neutral-800 dark:text-neutral-600 mb-4">
+                            <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        </div>
+                        <p class="text-neutral-500">No medical staff found. Add your first doctor above.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
 
-    {{-- EDIT MODAL --}}
-    <div id="editDoctorModal"
-         class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
-
-        <div class="w-full max-w-2xl rounded-xl border border-neutral-200 bg-white p-6
-                    dark:border-neutral-700 dark:bg-neutral-800">
-
-            <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                Edit Doctor
-            </h2>
-
+    {{-- Edit Doctor Modal --}}
+    <div id="editDoctorModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-6 shadow-2xl dark:border-neutral-700 dark:bg-neutral-800">
+            <h2 class="mb-4 text-lg font-bold text-neutral-900 dark:text-neutral-100">Edit Doctor Information</h2>
             <form id="editDoctorForm" method="POST">
                 @csrf
                 @method('PUT')
-
-                <div class="grid gap-4 md:grid-cols-2">
+                <div class="space-y-4">
                     <div>
-                        <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Doctor Specialization
-                        </label>
-                        <input id="edit_doctor_name" name="name" required
-                               class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
-                                      dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                        <label class="block mb-1 text-sm font-medium">Doctor Name / Specialization</label>
+                        <input id="editDoctorName" name="name" class="w-full rounded-lg bg-neutral-50 border border-neutral-300 px-4 py-2 dark:bg-neutral-700 dark:border-neutral-600">
                     </div>
-
-                    <div class="md:col-span-2">
-                        <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Description
-                        </label>
-                        <textarea id="edit_description" name="description" rows="3"
-                                  class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
-                                         dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100"></textarea>
+                    <div>
+                        <label class="block mb-1 text-sm font-medium">Description</label>
+                        <input id="editDoctorDescription" name="description" class="w-full rounded-lg bg-neutral-50 border border-neutral-300 px-4 py-2 dark:bg-neutral-700 dark:border-neutral-600">
                     </div>
                 </div>
-
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" onclick="closeEditModal()"
-                            class="rounded-lg border border-neutral-300 px-4 py-2 text-sm
-                                   dark:border-neutral-600 dark:text-neutral-300">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white
-                                   hover:bg-blue-700">
-                        Update Doctor
-                    </button>
+                    <button type="button" onclick="closeEditDoctorModal()" class="px-4 py-2 text-neutral-500 hover:text-neutral-700">Cancel</button>
+                    <button type="submit" class="rounded-lg bg-blue-600 px-6 py-2 font-semibold text-white hover:bg-blue-700">Save Changes</button>
                 </div>
             </form>
         </div>
@@ -205,15 +130,24 @@
     <script>
         function editDoctor(id, name, description) {
             document.getElementById('editDoctorModal').classList.remove('hidden');
-            document.getElementById('editDoctorModal').classList.add('flex');
             document.getElementById('editDoctorForm').action = `/doctors/${id}`;
-            document.getElementById('edit_doctor_name').value = name;
-            document.getElementById('edit_description').value = description || '';
+            document.getElementById('editDoctorName').value = name;
+            document.getElementById('editDoctorDescription').value = description;
         }
 
-        function closeEditModal() {
+        function closeEditDoctorModal() {
             document.getElementById('editDoctorModal').classList.add('hidden');
-            document.getElementById('editDoctorModal').classList.remove('flex');
         }
+
+        // Auto-hide success message
+        document.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('flash-message');
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    setTimeout(() => toast.remove(), 500);
+                }, 3000);
+            }
+        });
     </script>
 </x-layouts.app>

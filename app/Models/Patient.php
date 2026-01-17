@@ -18,6 +18,7 @@ class Patient extends Model
         'phone_number',
         'address',
         'doctor_id',
+        'status',
         'photo',
     ];
 

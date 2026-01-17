@@ -1,7 +1,6 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
-
         {{-- Success Message --}}
         @if(session('success'))
             <div id="flash-message" class="rounded-lg bg-green-100 p-4 text-green-700 dark:bg-green-900/30 dark:text-green-300">
@@ -9,10 +8,8 @@
             </div>
         @endif
 
-        <!-- Stats Cards -->
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
 
-            <!-- Total Patients -->
             <div class="relative overflow-hidden rounded-xl p-6
                         bg-gradient-to-r from-blue-500 to-cyan-500
                         text-white shadow-lg">
@@ -22,11 +19,10 @@
                             Total Patients
                         </p>
                         <h3 class="mt-2 text-3xl font-bold">
-                            {{ $patients->count() }}
+                            {{ $patients->total() }}
                         </h3>
                     </div>
                     <div class="rounded-full bg-white/20 p-3 ring-1 ring-white/30">
-                        <!-- Users Group Icon -->
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 20h5v-1a4 4 0 00-5-3.87M9 20H2v-1a4 4 0 015-3.87
@@ -36,7 +32,6 @@
                 </div>
             </div>
 
-            <!-- Active Doctors -->
             <div class="relative overflow-hidden rounded-xl p-6
                         bg-gradient-to-r from-emerald-500 to-teal-500
                         text-white shadow-lg">
@@ -50,7 +45,6 @@
                         </h3>
                     </div>
                     <div class="rounded-full bg-white/20 p-3 ring-1 ring-white/30">
-                        <!-- Medical Cross Icon -->
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6v12m6-6H6" />
@@ -59,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Hospital Rate -->
             <div class="relative overflow-hidden rounded-xl p-6
                         bg-gradient-to-r from-purple-500 to-indigo-500
                         text-white shadow-lg">
@@ -73,7 +66,6 @@
                         </h3>
                     </div>
                     <div class="rounded-full bg-white/20 p-3 ring-1 ring-white/30">
-                        <!-- Heartbeat Icon -->
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 13h3l2-5 4 10 2-5h3" />
@@ -84,7 +76,6 @@
 
         </div>
 
-        <!-- Patient Management Section -->
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-800">
             <div class="flex flex-col p-6 gap-6">
 
@@ -92,6 +83,7 @@
                     <form method="GET" action="{{ route('patients.export') }}" class="inline">
                         <input type="hidden" name="search" value="{{ request('search') }}">
                         <input type="hidden" name="doctor_filter" value="{{ request('doctor_filter') }}">
+                        <input type="hidden" name="status_filter" value="{{ request('status_filter') }}">
                         
                         <button type="submit"
                                 class="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700">
@@ -102,7 +94,6 @@
                         </button>
                     </form>
                 </div>
-                <!-- Add New Patient Form -->
                 <div class="mb-6 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900/50">
                     <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add New Patient</h2>
 
@@ -113,7 +104,7 @@
 
                         <div>
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</label>
-                            <input type="text" name="name" value="{{ old('name') }}" placeholder="ex. Juan P. Dela Cruz" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="ex. Juan Dela Cruz" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
                             @error('name')
                                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                             @enderror
@@ -123,11 +114,11 @@
                             <input
                                 type="date"
                                 name="date_of_birth"
-                                value="{{ old('dateOfBirth') ? \Carbon\Carbon::parse(old('dateOfBirth'))->format('Y-m-d') : '' }}"
+                                value="{{ old('date_of_birth') ? \Carbon\Carbon::parse(old('date_of_birth'))->format('Y-m-d') : '' }}"
                                 placeholder="Enter Date of Birth"
                                 required
                                 class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
-                            @error('dateOfBirth')
+                            @error('date_of_birth')
                                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -153,7 +144,6 @@
                             @enderror
                         </div>
                         
-                        {{-- NEW: DOCTOR DROPDOWN --}}
                         <div class="md:col-span-1">
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Doctor Specializations</label>
                             <select name="doctor_id" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 white:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
@@ -162,12 +152,23 @@
                                     <option value="{{ $doctor->id }}">{{ $doctor->name }} | {{ $doctor->description }} </option>
                                 @endforeach
                             </select>
-                        @error ('doctor_id')
+                            @error ('doctor_id')
                                 <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
-                <!-- Photo Upload -->
+                        <div class="md:col-span-1">
+                            <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Status</label>
+                            <select name="status" required class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 white:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                                <option value="pending" selected>Pending</option>
+                                <option value="active">Active</option>
+                                <option value="discharged">Discharged</option>
+                            </select>
+                            @error ('status')
+                                <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                 <div class="md:col-span-2">
                     <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                         Patient Photo (Optional)
@@ -203,11 +204,9 @@
                 </form>
                 </div>
 
-                <!-- Search & Filter Section -->
                 <div class="rounded-lg border border-neutral-700 bg-neutral-900/50 p-6">
                     <h2 class="mb-4 text-lg font-semibold text-white">Search & Filter Patients</h2>
-                    <form action="{{ route('dashboard') }}" method="GET" class="grid gap-4 md:grid-cols-3">
-                        <!-- Search Input -->
+                    <form action="{{ route('dashboard') }}" method="GET" class="grid gap-4 md:grid-cols-4">
                         <div class="md:col-span-1">
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                 Search
@@ -224,7 +223,6 @@
                             >
                         </div>
 
-                        <!-- Doctor Filter Dropdown -->
                         <div class="md:col-span-1">
                             <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                 Filter by Doctor
@@ -248,7 +246,24 @@
                             </select>
                         </div>
 
-                        <!-- Action Buttons -->
+                        <div class="md:col-span-1">
+                            <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                Filter by Status
+                            </label>
+                            <select
+                                name="status_filter"
+                                class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2
+                                    text-sm focus:border-blue-500 focus:outline-none
+                                    focus:ring-2 focus:ring-blue-500/20
+                                    dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100"
+                            >
+                                <option value="all">All Statuses</option>
+                                <option value="active" {{ request('status_filter') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="pending" {{ request('status_filter') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="discharged" {{ request('status_filter') == 'discharged' ? 'selected' : '' }}>Discharged</option>
+                            </select>
+                        </div>
+
                         <div class="flex items-end gap-2 md:col-span-1">
                             <button
                                 type="submit"
@@ -272,7 +287,6 @@
                 </div>
 
 
-                <!-- Patient List Table -->
                 <div class="flex-1 overflow-auto">
                     <h2 class="mb-4 text-lg font-semibold p-2 text-neutral-900 dark:text-neutral-100">Patient List</h2>
                     <div class="overflow-x-auto">
@@ -282,6 +296,7 @@
                                     <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">#</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Photo</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">Name</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">Status</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">Date of Birth</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">Email</th>
                                     <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300">Phone</th>
@@ -293,7 +308,7 @@
                             <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                                 @forelse($patients as $patient)
                                     <tr>
-                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ ($patients->currentPage() - 1) * $patients->perPage() + $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             @if($patient->photo)
                                                 <img
@@ -308,6 +323,16 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ $patient->name }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">
+                                            <span @class([
+                                                'px-3 py-1 rounded-full text-xs font-medium border',
+                                                'bg-green-900/40 text-green-400 border-green-700' => $patient->status === 'active',
+                                                'bg-yellow-900/40 text-yellow-400 border-yellow-700' => $patient->status === 'pending',
+                                                'bg-gray-800 text-gray-400 border-gray-600' => $patient->status === 'discharged',
+                                            ])>
+                                                {{ ucfirst($patient->status) }}
+                                            </span>
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ $patient->date_of_birth }}</td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->email }}</td>
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ $patient->phone_number }}</td>
@@ -327,36 +352,30 @@
                                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
                                             <div class="flex items-center gap-2 whitespace-nowrap">
 
-                                                <!-- EDIT -->
                                                 <button
-                                                    onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->photo }}')"
-                                                    class="rounded-md border border-blue-500 px-3 py-1 text-xs font-medium text-blue-600
-                                                        transition hover:bg-blue-50 hover:text-blue-700
-                                                        dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/30">
+                                                    onclick="editPatient({{ $patient->id }},'{{ $patient->name }}','{{ $patient->date_of_birth }}','{{ $patient->email }}','{{ $patient->phone_number }}','{{ $patient->address }}',{{ $patient->doctor_id ?? 'null'}}, '{{ $patient->status }}', '{{ $patient->photo }}')"
+                                                    class="rounded-md border border-blue-500/50 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400
+                                                        transition-all hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600">
                                                     Edit
                                                 </button>
 
-                                                <!-- TRASH -->
                                                 <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="inline"
                                                     onsubmit="return confirm('Are you sure you want to delete this patient?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
                                                         type="submit"
-                                                        class="rounded-md border border-red-500 px-3 py-1 text-xs font-medium text-red-600
-                                                            transition hover:bg-red-50 hover:text-red-700
-                                                            dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/30">
-                                                        Trash
+                                                        class="rounded-md border border-red-500/50 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-400
+                                                            transition-all hover:bg-red-500 hover:text-white dark:hover:bg-red-600">
+                                                        Discharge
                                                     </button>
                                                 </form>
-
                                             </div>
                                         </td>
-
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="px-4 py-8 text-center text-sm text-neutral-500 dark:text-neutral-400">
+                                        <td colspan="10" class="px-4 py-8 text-center text-sm text-neutral-500 dark:text-neutral-400">
                                             No patient found. Add your first patient above!
                                         </td>
                                     </tr>
@@ -364,12 +383,16 @@
                             </tbody>
                         </table>
                     </div>
+                    {{-- ADDED: Pagination links here --}}
+                    <div class="mt-4 px-4">
+                        {{ $patients->links() }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-   {{-- EDIT PATIENT MODAL --}}
+    {{-- EDIT PATIENT MODAL --}}
     <div id="editPatientModal"
         class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60">
 
@@ -426,12 +449,20 @@
                     </select>
                 </div>
 
-                <!-- Photo Upload in Edit Modal -->
-                <div class="md:col-span-2">
-                    <label for="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Patient Photo</label>
+                <div class="col-span-2">
+                    <label class="block mb-1 text-sm font-medium">Status</label>
+                    <select id="editStatus" name="status"
+                            class="w-full rounded-lg border px-4 py-2 dark:bg-neutral-700">
+                        <option value="pending">Pending</option>
+                        <option value="active">Active</option>
+                        <option value="discharged">Discharged</option>
+                    </select>
                 </div>
 
-                <!-- Current Photo Preview -->
+                <div class="md:col-span-2">
+                    <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Patient Photo</label>
+                </div>
+
                 <div id="currentPhotoPreview" class="md: flex items-center gap-3 rounded-lg border border-neutral-700 bg-nuetral-800 p-3">
                     <p class="text-sm text-neutral-400">
                         No Photo uploaded
@@ -471,7 +502,7 @@
 
 
     <script>
-        function editPatient(id, name, date_of_birth, email, phone_number, address, doctorId, photo) {
+        function editPatient(id, name, date_of_birth, email, phone_number, address, doctorId, status, photo) {
             const modal = document.getElementById('editPatientModal');
             modal.classList.remove('hidden');
             document.body.classList.add('overflow-hidden');
@@ -484,6 +515,7 @@
             document.getElementById('editPhoneNumber').value = phone_number;
             document.getElementById('editAddress').value = address;
             document.getElementById('editDoctorId').value = doctorId ?? '';
+            document.getElementById('editStatus').value = status;
 
             const preview = document.getElementById('currentPhotoPreview');
 
