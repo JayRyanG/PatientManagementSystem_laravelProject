@@ -354,7 +354,7 @@
                                                     Edit
                                                 </button>
                                                 <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="inline"
-                                                    onsubmit="return confirm('Are you sure you want to delete this patient?')">
+                                                    onsubmit="return confirm('Are you sure you want to remove this patient?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
