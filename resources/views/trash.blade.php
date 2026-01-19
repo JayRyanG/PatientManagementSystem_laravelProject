@@ -32,8 +32,16 @@
 
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-rose-200 bg-white dark:border-rose-900/30 dark:bg-neutral-800">
             <div class="flex flex-col p-6">
+                {{-- UPDATED: Header with Back to Dashboard Button --}}
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Deleted Patients Repository</h2>
+                    
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-2 rounded-lg bg-teal-500/10 px-4 py-2 text-sm font-bold text-teal-600 hover:bg-teal-500 hover:text-white transition-all">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Dashboard
+                    </a>
                 </div>
 
                 <div class="overflow-x-auto">
